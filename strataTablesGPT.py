@@ -7,13 +7,13 @@ def draw_table(pdf, data, x, y, col_widths):
     """Helper function to draw a table on the PDF canvas."""
     table = Table(data, colWidths=col_widths)
     table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.white),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, -1), 8),
+        ('FONTNAME', (0, 0), (-1, -1), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, -1), 10),
         ('BOTTOMPADDING', (0, 0), (-1, 0), 6),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.white),
         ('GRID', (0, 0), (-1, -1), 1, colors.black),
     ]))
     table.wrapOn(pdf, 500, 600)
@@ -34,9 +34,10 @@ def create_pdf(filename):
         ["F-J", "143", "8", "321, 382, 323, 242, 341, 348, 444, 335"],
         ["K-O", "144", "8", "472, 587, 546, 586, 646, 462, 463, 547"],
         ["P-T", "295", "15", "888, 638, 766, 853, 603, 629, 657, 678, 617, 776, 809, 834, 643, 702, 751"],
-        ["U-Z", "970", "51", "926, 923, 954, 969"],
+        ["U-Z", "72", "4", "926, 923, 954, 969"],
+        ["", "970", "", ""],
     ]
-    draw_table(pdf, strata_data, x=50, y=650, col_widths=[60, 60, 60, 350])
+    draw_table(pdf, strata_data, x=50, y=650, col_widths=[60, 65, 65, 350])
 
     # Individual Tables Data
     tables_data = [
@@ -68,7 +69,7 @@ def create_pdf(filename):
     ]
 
     # Positioning tables in two columns
-    x_left, x_right = 50, 270
+    x_left, x_right = 50, 290
     y_position = 400
 
     for i, (title, data) in enumerate(tables_data):
@@ -83,11 +84,13 @@ def create_pdf(filename):
         # Calculate title position based on number of rows
         if(i==0):
             title_y = y_position + 180 + (len(data))*2
+        elif(i==4):
+            title_y = y_position + 70 + (len(data))*2
         else:
             title_y = y_position + 80 + (len(data))*5
 
         pdf.drawString(x, title_y, title)
-        draw_table(pdf, data, x, y_position-20, col_widths=[40, 50, 70, 50])
+        draw_table(pdf, data, x, y_position-20, col_widths=[40, 50, 82, 50])
 
     # Save PDF
     pdf.save()
