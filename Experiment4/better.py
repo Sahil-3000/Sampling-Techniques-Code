@@ -207,8 +207,8 @@ position_map = {
 }
 
 
-yiSum = []
-yi2Sum = []
+# yiSum = []
+# yi2Sum = []
 
 
 def draw_table(pdf, data, x, y, col_widths,row_heights=None):
@@ -227,6 +227,8 @@ def draw_table(pdf, data, x, y, col_widths,row_heights=None):
     table.drawOn(pdf, x, y)
 
 def create_pdf(filename, rollNo):
+    yiSum = []
+    yi2Sum = []
     random.seed(int(rollNo))  # deterministic uniqueness per student
 
     pdf = canvas.Canvas(filename, pagesize=A4)
